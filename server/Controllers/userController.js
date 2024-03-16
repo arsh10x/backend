@@ -33,7 +33,7 @@ exports.addUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
   try {
-    const userData= await users.find();
+    const userData = await users.find();
     res.status(200).json(userData);
   } catch (error) {
     console.log("Catch block error");
@@ -41,4 +41,27 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// get single user 
+// get single user
+
+exports.getSingleUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const singleUserData = await users.findOne({ _id: id });
+    res.status(200).json(singleUserData);
+  } catch (error) {
+    console.log("Catch block error");
+    res.status(400).json(error);
+  }
+};
+
+// get deleted users
+exports.deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleteUser = await users.deleteOne({ _id: id });
+    res.status(200).json(deleteUser);
+  } catch (error) {
+    console.log("Catch block error");
+    res.status(400).json(error);
+  }
+};
